@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+# Copyright (C) 2018  Nathan Sullivan
 
 import csv
 
@@ -28,13 +28,13 @@ def _readcsv(filepath):
         return reader.fieldnames, lst
 
 def datafile(filepath):
-    log.debug(f"{}")
+    log.debug()
     headers, data = _readcsv(filepath)
     if g.headers:
         if g.headers != set(headers):
-            log.error(f"Data file not contain the same fields as \
-                previously loaded data. Check the data file or use \
-                secondary_datafile(filepath) instead.\n{filepath}")
+            log.error(f"Data file does not contain the same fields as" \
+                "previously loaded data. Check the data file or use" \
+                "secondary_datafile(filepath) instead.\n{filepath}")
 
 def secondary_datafile(filepath):
     pass

@@ -1,12 +1,9 @@
-#!/usr/bin/python3
+# Copyright (C) 2018  Nathan Sullivan
 
-import inspect
-import logging
-import sys
-import time
-import warnings
+import logging, time
 
 from .config import LOGGING
+
 
 class _MSec_Formatter(logging.Formatter):
     def formatTime(self, record, datefmt=None):
@@ -22,28 +19,13 @@ class _MSec_Formatter(logging.Formatter):
         return s
 
 
-def _deprecation(message, stacklevel=0):
-    warnings.warn(message, DeprecationWarning, stacklevel=stacklevel+2)
+def getLogger(name, level=None, file_level=None, stream_level=None):
+    try:
+        log.debug("adding logger %s (%d, %d, %d)", name,
+            level, file_level, stream_level)
+    except NameError:
+        pass # Defining the logger for the logging module
 
-# def _get_frame(depth=0):
-#     function_name = None
-
-#     try:
-#         frame = inspect.currentframe()
-#         if frame is not None:
-#             if sys.version_info[0] <= 2:
-#                 function_name = inspect.getouterframes(frame)[depth+1][3]
-#             else:
-#                 function_name = inspect.getouterframes(frame)[depth+1].function
-
-#     finally:
-#         del frame
-
-#     return function_name
-
-
-def getLogger(name:str, level:int=None, file_level:int=None,
-    stream_level:int=None) -> logging.Logger:
     logger = logging.getLogger(name)
     if level is None:
         logger.setLevel(LOGGING.log_level)
@@ -73,5 +55,6 @@ def getLogger(name:str, level:int=None, file_level:int=None,
 
     return logger
 
-# sys.stdout.write(string)
-# sys.stderr.write(string)
+
+log = getLogger(__name__)
+log.debug("logging initialised.")
