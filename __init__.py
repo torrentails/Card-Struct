@@ -12,45 +12,42 @@
 # GNU General Public License for more details.
 
 from . import _version_check
+from . import Logger as _logger
+from . import Controller
+# from .config import BASIC
 
-# import
-
-from . import logger
-
-__all__ = ['log']
+# __all__ = ['All', 'G',
+#     'card', 'frame', 'geometry', 'logger']
 
 __author__  = "Nathan Sullivan <nsul@torrentails.com>"
 __status__  = "development"
-__version__ = "0.0.1.1"
-__date__    = "13 Janurary 2018"
+__version__ = "0.0.13"
+__date__    = "18 Janurary 2018"
 
 
-_log = logger.getLogger(__name__)
-log = logger.getLogger('__main__')
+_log = _logger.init(__name__)
+
+G = Controller.init()
+
+from .Card import *
+from .Geometry import *
+from .Frame import *
 
 
-class _G():
-    def __init__(self):
-        self.current_card = 0
-        self.headers = None
-        self.data = []
+class _AllType:
+    inst = None
+    def __new__(cls, *args, **kwargs):
+        if cls.inst is None:
+            cls.inst = type('AllType', (object,), {})()
+        return cls.inst
 
-        self.card_ranges = {}
+    def __setattr__(self, name, value):
+        raise AttributeError("'{}' object has no attribute '{}'" \
+            .format(self.__class__.__name__, name))
 
-        self.cards_start = 0
-        self.cards_end = 0
+All = _AllType()
 
-G = _G()
-
-def All(obj):
-    G.card_ranges[start] = (G.cards_start, G.cards_end)
-
-def Range(start, stop=None):
-    if type(start) is type(All):
-        start = G.cards_start
-        end = G.cards_end
-
-    elif stop is None:
 
 if __name__ == '__main__':
+    #TODO: run tests here
     pass

@@ -32,9 +32,9 @@ def datafile(filepath):
     headers, data = _readcsv(filepath)
     if g.headers:
         if g.headers != set(headers):
-            log.error(f"Data file does not contain the same fields as" \
+            log.error("Data file does not contain the same fields as" \
                 "previously loaded data. Check the data file or use" \
-                "secondary_datafile(filepath) instead.\n{filepath}")
+                "secondary_datafile(filepath) instead.\n{}", filepath)
 
 def secondary_datafile(filepath):
     pass

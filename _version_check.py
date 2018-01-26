@@ -3,10 +3,13 @@
 from sys import exit
 from sys import version_info as vi
 
-from .config import BASIC
+from .Config import BASIC
 
-if vi[0] < BASIC.min_major_version or vi[1] < BASIC.min_minor_version:
+min_major = BASIC.min_python_major
+min_minor = BASIC.min_python_minor
+
+if vi[0] < min_major or vi[1] < min_minor:
     print("%s only supports python language version %d.%d or higher." \
         " Please download the latest version of python." \
-        % (BASIC.name, BASIC.min_major_version, BASIC.min_minor_version))
+        % (BASIC.name, min_major, min_minor))
     exit(1)
